@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Evaluation Metrics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Model Evaluation</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>R² Score</td>
+                    <td>{{ '%.4f'|format(r2) }}</td>
+                </tr>
+                <tr>
+                    <td>Root Mean Squared Error (RMSE)</td>
+                    <td>{{ '%.4f'|format(rmse) }}</td>
+                </tr>
+                <tr>
+                    <td>Mean Absolute Error (MAE)</td>
+                    <td>{{ '%.4f'|format(mae) }}</td>
+                </tr>
+                <tr>
+                    <td>RMSE (%)</td>
+                    <td>{{ '%.2f'|format(rmse_percent) }}%</td>
+                </tr>
+                <tr>
+                    <td>MAPE</td>
+                    <td>{{ '%.2f'|format(mape) }}%</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Time vs Load Plot</h2>
+<img src="{{ url_for('load_plot') }}" alt="Time vs Load Plot" style="width:100%; max-width:900px;">
+
+
+        <div class="back-button">
+            <a href="{{ url_for('index') }}">← Back to Forecast</a>
+        </div>
+    </div>
+</body>
+</html>

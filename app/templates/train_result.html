@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Training Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Model Training Completed</h1>
+    <p><strong>R² Score:</strong> {{ r2 }}</p>
+    <p><strong>RMSE:</strong> {{ rmse }}</p>
+    <a href="{{ url_for('index') }}">← Back to Forecasting</a>
+  </div>
+</body>
+</html>
