@@ -114,6 +114,13 @@ from flask import send_file
 import matplotlib.pyplot as plt
 import io
 
+import io
+import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from flask import Flask, send_file
+
 @app.route('/load_plot.png')
 def load_plot():
     try:
@@ -141,6 +148,7 @@ def load_plot():
 
     except Exception as e:
         return f"<h3>Error generating plot: {e}</h3><br><a href='/'>Go back</a>"
+
 
 
 @app.route('/upload', methods=['GET', 'POST'])
