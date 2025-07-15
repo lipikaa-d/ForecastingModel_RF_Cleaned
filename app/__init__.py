@@ -2,7 +2,7 @@ from flask import Flask
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = 'secret-key'  # required for flashing messages
+    app.secret_key = 'secret-key' 
 
     from app.routes import main
     app.register_blueprint(main)
