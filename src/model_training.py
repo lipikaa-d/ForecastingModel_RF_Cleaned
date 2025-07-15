@@ -2,7 +2,7 @@ import os
 import joblib
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split  # ✅ Added
+from sklearn.model_selection import train_test_split  
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from src.data_preprocessing import load_and_clean_data
 from src.feature_engineering import prepare_features_and_target
@@ -24,7 +24,7 @@ def train_and_save_model(data_path, model_path=None, num_lags=5):
     df = load_and_clean_data(data_path)
     X, y = prepare_features_and_target(df, target_col='LOAD', num_lags=num_lags)
 
-    # ✅ Random train-test split (10% test set)
+    # Random train-test split (10% test set)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
     # Train model
