@@ -18,7 +18,7 @@ def mean_absolute_percentage_error(y_true, y_pred):
     y_true, y_pred = np.array(y_true), np.array(y_pred)
     mask = y_true != 0
     if not np.any(mask):
-        return float('inf')  # avoid divide-by-zero case
+        return float('inf') 
     return np.mean(np.abs((y_true[mask] - y_pred[mask]) / y_true[mask])) * 100
 
 
@@ -31,7 +31,6 @@ def evaluate_model(model, X_test, y_test):
     mae = mean_absolute_error(y_test, predictions)
     mape = mean_absolute_percentage_error(y_test, predictions)
 
-    # RMSE as a percentage of mean actual value
     mean_actual = np.mean(y_test)
     rmse_percent = (rmse / mean_actual) * 100 if mean_actual != 0 else float('inf')
 
@@ -55,7 +54,6 @@ def get_evaluation_metrics():
     return evaluate_model(model, X_test, y_test)
 
 
-# Run manually for debugging or testing
 if __name__ == '__main__':
     metrics = get_evaluation_metrics()
     print("Model Evaluation Metrics:")
