@@ -13,17 +13,13 @@ def load_model(model_path='model.pkl'):
 
 
 def predict_latest(df, model, target_col='LOAD', num_lags=5):
-    # Generate lag features
     df_with_lags = create_lag_features(df, target_col=target_col, num_lags=num_lags)
-
-    # Select the last row for prediction
+    
     latest_row = df_with_lags.tail(1)
 
-    # Prepare feature columns
     feature_cols = ['P_IN', 'T_IN', 'P_OUT', 'T_OUT'] + [f'{target_col}_t-{i}' for i in range(1, num_lags + 1)]
     X_latest = latest_row[feature_cols]
 
-    # Predict
     predicted_load = model.predict(X_latest)[0]
     return predicted_load
 
