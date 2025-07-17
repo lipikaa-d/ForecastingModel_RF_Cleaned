@@ -13,8 +13,6 @@ def load_trained_model():
     return joblib.load(MODEL_PATH)
 
 
-# At the end of app/utils.py
-
 def get_latest_input_data():
     df = load_and_clean_data(DATA_PATH)
     latest_row = df.iloc[-1]
