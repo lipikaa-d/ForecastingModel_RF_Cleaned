@@ -14,7 +14,6 @@ def forecast_future_load(df, model, steps=10, num_lags=5):
     predictions = []
 
     for _ in range(steps):
-        # Prepare lag feature input
         lag_features = [last_row[f'LOAD_t-{i}'] for i in range(1, num_lags + 1)]
         features = pd.DataFrame([[
             last_row['P_IN'], last_row['T_IN'],
@@ -22,11 +21,9 @@ def forecast_future_load(df, model, steps=10, num_lags=5):
             *lag_features
         ]], columns=['P_IN', 'T_IN', 'P_OUT', 'T_OUT'] + [f'LOAD_t-{i}' for i in range(1, num_lags + 1)])
 
-        # Predict next load
         next_load = model.predict(features)[0]
         predictions.append(next_load)
 
-        # Shift lags and insert new prediction
         for i in range(num_lags, 1, -1):
             last_row[f'LOAD_t-{i}'] = last_row[f'LOAD_t-{i - 1}']
         last_row['LOAD_t-1'] = next_load
