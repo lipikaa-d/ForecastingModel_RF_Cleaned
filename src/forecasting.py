@@ -35,11 +35,9 @@ def forecast_future_load(df, model, steps=10, num_lags=5):
 
 
 if __name__ == '__main__':
-    # Load model and data
     model = joblib.load('../model.pkl')
     df = load_and_clean_data('../data/combinedddddd_dataset.xlsx')
 
-    # Forecast next 10 steps
     forecast = forecast_future_load(df, model, steps=10, num_lags=5)
 
     print("Next 10 predicted LOAD values:")
