@@ -95,7 +95,7 @@ def index():
 @app.route('/metrics')
 def metrics():
     try:
-        from src.evaluation import get_evaluation_metrics  # Ensure it's imported
+        from src.evaluation import get_evaluation_metrics  
 
         metrics = get_evaluation_metrics()
 
