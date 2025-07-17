@@ -1,5 +1,3 @@
-# app/utils.py
-
 import pandas as pd
 import joblib
 from src.data_preprocessing import load_and_clean_data
@@ -20,20 +18,16 @@ def get_latest_input_data():
 
 
 def forecast_from_manual_input(model, manual_input_dict, steps):
-    #multi-step forecast from manually entered input.
     forecast = []
 
-    # Initialize input dataframe
     current_input = pd.DataFrame([manual_input_dict])
     current_input = current_input[['P_IN', 'T_IN', 'P_OUT', 'T_OUT',
                                    'LOAD_t-1', 'LOAD_t-2', 'LOAD_t-3', 'LOAD_t-4', 'LOAD_t-5']]
 
     for _ in range(steps):
-        # Predict next value
         next_load = model.predict(current_input)[0]
         forecast.append(next_load)
 
-        # Shift LOAD values for next prediction
         for i in range(5, 1, -1):
             current_input[f'LOAD_t-{i}'] = current_input[f'LOAD_t-{i-1}']
         current_input['LOAD_t-1'] = next_load
@@ -42,10 +36,8 @@ def forecast_from_manual_input(model, manual_input_dict, steps):
 
 
 def forecast_next_steps(model, steps):
-    #Forecast future steps using the trained model based on the last known data row.
     df = load_and_clean_data(DATA_PATH)
     df_with_lags = create_lag_features(df, target_col='LOAD', num_lags=5)
-    # Use last row of features for forecasting
     input_df = df_with_lags.iloc[[-1]][['P_IN', 'T_IN', 'P_OUT', 'T_OUT',
                                         'LOAD_t-1', 'LOAD_t-2', 'LOAD_t-3', 'LOAD_t-4', 'LOAD_t-5']]
 
@@ -53,8 +45,7 @@ def forecast_next_steps(model, steps):
     for _ in range(steps):
         pred = model.predict(input_df)[0]
         forecast.append(pred)
-
-        # Update input_df with new prediction
+        
         new_row = input_df.copy()
         for i in range(5, 1, -1):
             new_row[f'LOAD_t-{i}'] = new_row[f'LOAD_t-{i-1}']
